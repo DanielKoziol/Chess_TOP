@@ -98,7 +98,7 @@ describe '#get input' do
   subject(:board_move) {described_class.new}
   let(:mock_bishop) {instance_double(Bishop)}
   let(:mock_pawn) {instance_double(Pawn)}
-  let(:valid_input) {'e2-e4'}
+  let(:valid_input) {'c1-e3'}  #invalid on purpose
   let(:valid_coord) {[[4,1],[4,3]]}
   let(:invalid_input) {'z9-55'}
   #let(:new_board) {Board.new} jak to zrobic?
@@ -119,7 +119,7 @@ describe '#get input' do
 
     it 'calls gets and returns coordinates when the input is correct' do
       expect(board_move).to receive(:puts)
-      move = board_move.input_to_move_coord(board_move.get_input)
+      move = board_move.input_to_move_coord
       expect(move).to eq(valid_coord)
     end
   end
@@ -129,7 +129,7 @@ describe '#get_move' do
   subject(:get_move_game) {described_class.new}
   #let(:mock_bishop) {instance_double(Bishop, player: 'White')}
   let(:taken_pawn) {instance_double(Pawn, player: 'Black')}
-  let(:valid_input) {'c2-e4'}
+  let(:valid_input) {'c1-f4'}
   let(:castling) {'0-0'}
   let(:valid_move) {[[2,0],[4,2]]}
   let(:invalid_move) {[[2,0],[2,1]]}

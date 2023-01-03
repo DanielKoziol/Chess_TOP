@@ -134,7 +134,8 @@ p "names"
     return input #add other checks
   end
 
-  def input_to_move_coord(input) #add error handling - if error return "please verify your input" 
+  def input_to_move_coord #add error handling - if error return "please verify your input" 
+    input = get_input
     return input if CASTLING.include?(input)
 #maybe include get_input method here? input = get_input and remove paramter
 #error catching included here if any error then re-start    
@@ -151,7 +152,7 @@ p "names"
   end
 
   def get_move
-    move = input_to_move_coord(get_input)
+    move = input_to_move_coord
     #verified_move = []
     if CASTLING.include?(move)
       verified_move = verify_castling(move)
@@ -333,3 +334,4 @@ gra.print_b
 p "konik"
 p gra.get_piece_f_board([2,0]).name
 p [3,0].to_pos
+p gra.verify_move([[2,0],[5,3]])
