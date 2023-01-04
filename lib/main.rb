@@ -128,17 +128,18 @@ p "names"
   end
 
   def input_checks(input)
-    p "in checks"
+    #p "in checks"
     return input if CASTLING.include?(input)
 
     return input #add other checks
   end
 
   def input_to_move_coord #add error handling - if error return "please verify your input" 
+    #verified = false
+    #until verified == true
     input = get_input
     return input if CASTLING.include?(input)
-#maybe include get_input method here? input = get_input and remove paramter
-#error catching included here if any error then re-start    
+#error catching included here if any error then re-start (with verified?)   
     y1 = get_col(input[0])
     y2 = get_col(input[-2])
     x1 = input[1].to_i
@@ -152,6 +153,8 @@ p "names"
   end
 
   def get_move
+    verified_move = false
+    until verified_move == true
     move = input_to_move_coord
     #verified_move = []
     if CASTLING.include?(move)
@@ -160,7 +163,8 @@ p "names"
       verified_move = verify_move(move)
     end
 
-    return move if verified_move
+    break move if verified_move
+    end
   end
 
   def no_piece

@@ -98,7 +98,7 @@ describe '#get input' do
   subject(:board_move) {described_class.new}
   let(:mock_bishop) {instance_double(Bishop)}
   let(:mock_pawn) {instance_double(Pawn)}
-  let(:valid_input) {'c1-e3'}  #invalid on purpose
+  let(:valid_input) {'e2-e4'}  #invalid on purpose
   let(:valid_coord) {[[4,1],[4,3]]}
   let(:invalid_input) {'z9-55'}
   #let(:new_board) {Board.new} jak to zrobic?
@@ -129,7 +129,8 @@ describe '#get_move' do
   subject(:get_move_game) {described_class.new}
   #let(:mock_bishop) {instance_double(Bishop, player: 'White')}
   let(:taken_pawn) {instance_double(Pawn, player: 'Black')}
-  let(:valid_input) {'c1-f4'}
+  let(:valid_input) {'c1-e3'}
+  let(:invalid_input) {'c3-e4'}
   let(:castling) {'0-0'}
   let(:valid_move) {[[2,0],[4,2]]}
   let(:invalid_move) {[[2,0],[2,1]]}
@@ -138,11 +139,13 @@ describe '#get_move' do
   before do 
    #pos = [2,0].to_pos
    #get_move_game.board_state.update_board(pos, mock_bishop)
-   allow(get_move_game).to receive(:gets).and_return(valid_input)
+   allow(get_move_game).to receive(:gets).and_return(invalid_input, valid_input)
   end
 
   it 'returns valid move' do
+    expect(get_move_game).to receive(:p).with('no such piece!').once #why twice?
     move = get_move_game.get_move
+    
     expect(move).to eq(valid_move)
   end
 
